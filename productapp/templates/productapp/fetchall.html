@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Product List</title>
+    <style> 
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th a {
+            text-decoration: none;
+            color: black;
+        }
+        th a:hover {
+            color: blue;
+        }   
+    </style>
+{% endblock %}
+
+{% block content %}
+    <a href="{% url 'add' %}">Add Product</a>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" value="{{keyword}}" name="keyword" placeholder="Search Product"/>
+        <input type="submit" value="Search"/>
+    </form>
+    <h1>Product List</h1>
+    <table border="1">
+        <tr>
+            <th> Action </th>
+            <th> <a href="{% url 'fetchall' %}?order_by=id">Product Id</th>
+            <th> <a href="{% url 'fetchall' %}?order_by=name">Product Name</th>
+            <th> <a href="{% url 'fetchall' %}?order_by=price">Product Price</th>
+        </tr>
+        {% for product in tinitinda %}
+            <tr>
+                <td>
+                    <a href="{% url 'update' product.id %}">Edit</a> |
+                    <a href="{% url 'softDelete' product.id %}">Delete</a> |
+                    <a href="{% url 'hardDelete' product.id %}">Hard Delete</a>
+                </td>
+                <td>{{ product.id }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.price }}</td>
+            </tr>
+        {% endfor %}
+{% endblock %}

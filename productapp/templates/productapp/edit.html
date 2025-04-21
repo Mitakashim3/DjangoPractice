@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Edit Existing Product</title>
+{% endblock %}
+
+{% block content %}
+    <a href="{% url 'fetchall' %}">Product List</a>
+    <h1>Edit Product</h1>
+    <!-- <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Product</button>
+    </form> -->
+    {{ message }}
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" value="{{product.name}}" name="productname" placeholder="Edit Product Name">
+        <input type="number" value="{{product.price}}"placeholder="Edit Product Price" name="productprice">
+        <input type="submit" value="Add Product">
+    </form>
+{% endblock %}
